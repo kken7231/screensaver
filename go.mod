@@ -1,4 +1,4 @@
-module go/screensaver
+module github.com/kken7231/screensaver
 
 go 1.22.2
 
