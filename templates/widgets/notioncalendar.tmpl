@@ -1,0 +1,109 @@
+{{ define "event" }}
+<div title="{{ .name }}: {{ .time_desc }}" class="event absolute flex flex-row items-start" style="
+    --corner-radius: calc(var(--wg-width) * 0.03);
+    top: calc(var(--title-section-height) + (var(--wg-height) - var(--title-section-height))  / var(--nslot) * ({{ .start_mins }} / 60 - var(--min-hours)) + var(--horline-fontsize, calc(var(--wg-height) * 0.03)) / 2);
+    left: calc(var(--wg-width) * 0.20 + (var(--corner-radius) + var(--wg-width) * 0.05) * {{ .level }});
+    width: calc(var(--wg-width) * 0.75 - (var(--corner-radius) + var(--wg-width) * 0.035) * {{ .level }});
+    height: calc((var(--wg-height) - var(--title-section-height)) / var(--nslot) * (({{ .end_mins }} - {{ .start_mins }}) / 60));
+    background: var(--md-sys-color-tertiary-container);
+    border: 1px solid var(--md-sys-color-on-primary-container);;
+    border-radius: var(--corner-radius);
+    overflow: hidden;
+">
+    <div class="h-full" style="
+        background: var(--md-sys-color-on-tertiary-container);
+        width: calc(var(--corner-radius) * 2);
+        border-radius: var(--corner-radius);
+    "></div>
+    <div class="flex flex-col items-start" style="margin: var(--corner-radius); 
+        max-width: calc(var(--wg-width) * 0.75 - (var(--corner-radius) + var(--wg-width) * 0.05) * {{ .level }} - var(--corner-radius) * 2);
+    ">
+        <span style="
+            font-size: min(var(--horline-fontsize, calc(var(--wg-height) * 0.03)), calc((var(--wg-height) - var(--title-section-height)) / var(--nslot) * (({{ .end_mins }} - {{ .start_mins }}) / 60)) - var(--corner-radius) * 2);
+            text-align: left;
+            color: var(--md-sys-color-on-tertiary-container);
+        ">{{ .name }}</span>
+        <span class="font-mono" style="
+            font-size: calc(min(var(--horline-fontsize, calc(var(--wg-height) * 0.03)), calc((var(--wg-height) - var(--title-section-height)) / var(--nslot) * (({{ .end_mins }} - {{ .start_mins }}) / 60)) - var(--corner-radius) * 2) * 0.65);
+            margin-top: calc(var(--corner-radius) * 0.6);
+            color: var(--md-sys-color-on-tertiary-container);
+        ">{{ .time_desc }}</span>
+    </div>
+</div>
+{{ end }}
+
+{{ define "middleh" }}
+
+<div class="wg-hstack" style="--title-section-height: calc(var(--wg-height) * 0.25);">
+    <div class="wg-vstack w-1/2 items-start">
+        <span style="
+            font-size: calc(var(--title-section-height) / 2);
+            margin-bottom: calc(var(--title-section-height) / 2);
+        " id="wgcontent-{{ .widgetId }}-Tomorrow" ></span>
+        <div class="tomorrow-events wg-html" id="wgcontent-{{ .widgetId }}-TomorrowEvents"></div>
+    </div>
+     <div class="wg-vstack w-1/2 items-start">
+        <span style="
+            font-size: calc(var(--title-section-height) / 2);
+            margin-bottom: calc(var(--title-section-height) / 2);
+        " id="wgcontent-{{ .widgetId }}-Dat" ></span>
+        <div class="dat-events wg-html" id="wgcontent-{{ .widgetId }}-DatEvents"></div>
+    </div>
+</div>
+{{ end }}
+
+{{ define "middlev" }}
+
+<div class="relative wg-wrapper w-full h-full" style="--horline-fontsize: calc(var(--wg-height) * 0.03); --title-section-height: calc(var(--wg-height) * 0.075);">
+	<span class="absolute" style="
+        font-size: calc(var(--title-section-height) / 2);
+        top: 0;
+        left: calc(var(--wg-width) * 0.03);
+    " id="wgcontent-{{ .widgetId }}-Today" ></span>
+
+    <div class="lines wg-html" id="wgcontent-{{ .widgetId }}-Lines" ></div>
+	<div class="events wg-html" id="wgcontent-{{ .widgetId }}-Events"></div>
+</div>
+
+<script>
+setInterval(() => {
+    let nowLineElement = document.querySelector("#wgcontent-{{ .widgetId }}-Lines>.nowline")
+    if(nowLineElement !== null) {
+        nowLineElement.style.setProperty("--nowline-visibility", "hidden");
+        let a = new Date();
+        let mins = a.getHours()*60 + a.getMinutes();
+        if(mins >= {{ .min_hours }}*60 && mins <= {{ .max_hours }}*60) {
+            nowLineElement.style.setProperty("--now-minutes", mins);
+            nowLineElement.style.setProperty("--nowline-visibility", "visible");
+        }
+    }
+},1000*60);
+</script>
+{{ end }}
+
+{{ define "longv" }}
+
+<div class="relative wg-wrapper w-full h-full" style="--horline-fontsize: calc(var(--wg-height) * 0.015); --title-section-height: calc(var(--wg-height) * 0.050);">
+	<span class="absolute" style="
+        font-size: calc(var(--title-section-height) / 2);
+        top: 0;
+        left: calc(var(--wg-width) * 0.03);
+    " id="wgcontent-{{ .widgetId }}-Today" ></span>
+
+    <div class="lines wg-html" id="wgcontent-{{ .widgetId }}-Lines"></div>
+	<div class="events wg-html" id="wgcontent-{{ .widgetId }}-Events"></div>
+</div>
+
+<script>
+setInterval(() => {
+    let nowLineElement = document.querySelector("#wgcontent-{{ .widgetId }}-Lines>.nowline")
+    if(nowLineElement !== null) {
+        nowLineElement.style.setProperty("--nowline-visibility", "hidden");
+        let a = new Date();
+        let mins = a.getHours()*60 + a.getMinutes();
+        nowLineElement.style.setProperty("--now-minutes", mins);
+        nowLineElement.style.setProperty("--nowline-visibility", "visible");
+    }
+},1000*60);
+</script>
+{{ end }}

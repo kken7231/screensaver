@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Layout Configurator</title>
+    <link rel="stylesheet" type="text/css" href="style">
+</head>
+<body>
+    <h1>Configure Grid Layout</h1>
+    <form id="layoutForm">
+        <label for="rows">Rows:</label>
+        <input type="number" id="rows" name="rows" min="1" required>
+        <label for="cols">Columns:</label>
+        <input type="number" id="cols" name="cols" min="1" required>
+        <button type="button" onclick="generateGrid()">Generate Grid</button>
+    </form>
+    <div id="gridConfigurator" class="grid-container"></div>
+    <button type="button" onclick="saveLayout()">Save Layout</button>
+    <script>
+        function generateGrid() {
+            const rows = document.getElementById('rows').value;
+            const cols = document.getElementById('cols').value;
+            const gridConfigurator = document.getElementById('gridConfigurator');
+            gridConfigurator.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+            gridConfigurator.style.gridTemplateRows = `repeat(${rows}, 1fr)`;
+            gridConfigurator.innerHTML = '';
+            for (let i = 0; i < rows * cols; i++) {
+                const cell = document.createElement('div');
+                cell.className = 'widget-config';
+                cell.innerHTML = `
+                    <select>
+                        <option value="">Select Widget</option>
+                        <option value="WeatherWidget">Weather Widget</option>
+                        <option value="CalendarWidget">Calendar Widget</option>
+                    </select>
+                `;
+                gridConfigurator.appendChild(cell);
+            }
+        }
+
+        function saveLayout() {
+            const rows = document.getElementById('rows').value;
+            const cols = document.getElementById('cols').value;
+            const cells = [];
+            document.querySelectorAll('.widget-config select').forEach(select => {
+                cells.push({ widget_type: select.value, widget_data: '' });
+            });
+            const layout = { name: 'custom_layout', rows: parseInt(rows), cols: parseInt(cols), cells: cells };
+            fetch('/saveLayout', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(layout)
+            }).then(response => {
+                if (response.ok) {
+                    alert('Layout saved successfully!');
+                } else {
+                    alert('Failed to save layout.');
+                }
+            });
+        }
+    </script>
+</body>
+</html>

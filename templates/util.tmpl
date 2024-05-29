@@ -1,0 +1,46 @@
+{{ define "horline" }}
+<div class="horline">
+    <span class="absolute font-mono" style="
+        font-size: var(--horline-fontsize, 3%);
+        font-weight: 400; 
+        top: calc(var(--title-section-height) + (var(--wg-height) - var(--title-section-height)) / {{ .nRow }} * {{ .index }});
+        left: 0px;
+        width: calc(var(--wg-width) * 0.1);
+        color: var(--md-sys-color-on-primary-container);
+    ">{{ .text }}</span>
+    <hr class="absolute" style="
+        margin: 0px;
+        border: none;
+        height: 1px;
+        background-color: var(--md-sys-color-on-primary-container);
+        top: calc(var(--title-section-height) + (var(--wg-height) - var(--title-section-height)) / {{ .nRow }} * {{ .index }} + var(--horline-fontsize, calc(var(--wg-height) * 0.03)) / 2);
+        left: calc(var(--wg-width) * 0.15);
+        width: calc(var(--wg-width) * 0.85);
+    ">
+</div>
+{{ end }}
+
+{{ define "nowline" }}
+<div class="nowline" style="--now-minutes: {{ .minNow }}; --nowline-visibility: {{ .initialVisibility }};">
+    <hr class="nowline-line absolute" style="
+        margin: 0px;
+        border: none;
+        height: 1px;
+        background-color: var(--md-sys-color-tertiary);
+        top: calc(var(--title-section-height) + (var(--wg-height) - var(--title-section-height)) / {{ .nRow }} * (var(--now-minutes) / 60 - {{ .minHours }}) + var(--horline-fontsize, calc(var(--wg-height) * 0.03)) / 2);
+        left: calc(var(--wg-width) * 0.15);
+        width: calc(var(--wg-width) * 0.85);
+        visibility: var(--nowline-visibility);
+    ">
+    <span class="nowline-pin absolute" style="
+        --pin-radius: calc(var(--wg-width) * 0.015);
+        top: calc(var(--title-section-height) + (var(--wg-height) - var(--title-section-height)) / {{ .nRow }} * (var(--now-minutes) / 60 - {{ .minHours }}) + var(--horline-fontsize, calc(var(--wg-height) * 0.03)) / 2 - var(--pin-radius));
+        left: calc(var(--wg-width) * 0.15 - var(--pin-radius)*2);
+        width: calc(var(--pin-radius) * 2);
+        height: calc(var(--pin-radius) * 2);
+        border-radius: var(--pin-radius);
+        background-color: var(--md-sys-color-tertiary);
+        visibility: var(--nowline-visibility);
+    "></span>
+</div>
+{{ end }}

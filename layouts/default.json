@@ -1,0 +1,50 @@
+{
+    "name": "default",
+    "rows": 4,
+    "cols": 6,
+    "widgets": [
+        {
+            "type": "notioncalendar",
+            "size": "longv",
+            "row": 1,
+            "col": 1,
+            "data": {}
+        },
+        {
+            "type": "clock",
+            "size": "middleh",
+            "row": 1,
+            "col": 4,
+            "data": {}
+        },
+        {
+            "type": "notioncalendar",
+            "size": "middleh",
+            "row": 1,
+            "col": 2,
+            "data": {}
+        },
+        {
+            "type": "weatherforecast",
+            "size": "small",
+            "row": 2,
+            "col": 4,
+            "data": {
+                "location_name": "Home",
+                "location_latitude": 33.58,
+                "location_longitude": 130.35
+            }
+        },
+        {
+            "type": "weatherforecast",
+            "size": "small",
+            "row": 2,
+            "col": 5,
+            "data": {
+                "location_name": "Univ",
+                "location_latitude": 33.60,
+                "location_longitude": 130.22
+            }
+        }
+    ]
+}

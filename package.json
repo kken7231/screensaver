@@ -1,0 +1,13 @@
+{
+  "scripts": {
+    "cssbuild": "npx tailwindcss -i ./main.css -o ./static/tailwind.css --watch",
+    "transfer-material": "rm -rf static/packages/@material/material-color-utilities && mkdir -p static/packages/@material/material-color-utilities && cp -r node_modules/@material/material-color-utilities/ static/packages/@material/material-color-utilities",
+    "start": "go run *.go"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.3"
+  },
+  "dependencies": {
+    "@material/material-color-utilities": "^0.2.7"
+  }
+}

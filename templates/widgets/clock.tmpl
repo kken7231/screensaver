@@ -1,0 +1,26 @@
+{{ define "middleh" }}
+<div class="wg-vstack w-full" style="justify-content: center;">
+	<span id="wgcontent-{{ .widgetId }}-Date" style="
+		font-size: 10%;
+		margin-bottom: calc(var(--wg-height) * 0.10);
+	"></span>
+	<span class="font-mono" id="wgcontent-{{ .widgetId }}-Time" style="
+		font-size: 40%;
+	"></span>
+</div>
+
+<script type="module">
+import { formatJapaneseDate, formatTime } from '/index.js';
+
+setInterval(() => {
+    let dateElement = document.getElementById("wgcontent-{{ .widgetId }}-Date");
+    let timeElement = document.getElementById("wgcontent-{{ .widgetId }}-Time");
+
+    if(dateElement !== null && timeElement !== null) {
+        let a = new Date();
+		dateElement.innerText = formatJapaneseDate(a, "EN");
+		timeElement.innerText = formatTime(a);
+    }
+},1000);
+</script>
+{{ end }}

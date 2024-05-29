@@ -1,0 +1,46 @@
+{{ define "small" }}
+
+<div class="wg-vstack">
+    <div class="wg-hstack">
+        <span style="margin-bottom: calc(var(--cell-size) * 0.01); font-size: 9%;" id="wgcontent-{{ .widgetId }}-LocationName" /span>
+        <div class="wg-spacer"></div>
+    </div>
+    <div class="wg-hstack">
+        <span style="font-size: 37%; font-weight: 100;" id="wgcontent-{{ .widgetId }}-Current-Temp" /span>
+        <div class="wg-spacer"></div>
+    </div>
+    <div class="wg-spacer"></div>
+    <div class="wg-hstack">
+        <span style="font-size: 10%;" id="wgcontent-{{ .widgetId }}-Current-WeatherName" /span>
+        <div class="wg-spacer"></div>
+    </div>
+    <span style="position: absolute; font-size: 40%; z-index: 1; bottom: 0px; right: 0px; " class="material-symbols-outlined" id="wgcontent-{{ .widgetId }}-Current-WeatherIcon" /span>
+</div>
+{{ end }}
+
+
+{{ define "middlev" }}
+<div class="relative wg-wrapper w-full h-full" style="--horline-fontsize: calc(var(--wg-height) * 0.03); --title-section-height: calc(var(--wg-height) * 0.075);">
+	<span class="absolute" style="
+        font-size: calc(var(--title-section-height) / 2);
+        top: 0;
+        left: calc(var(--wg-width) * 0.03);
+    " id="wgcontent-{{ .widgetId }}-Today" ></span>
+
+    <div class="lines wg-html" id="wgcontent-{{ .widgetId }}-Lines" ></div>
+    <div class="graph wg-html" id="wgcontent-{{ .widgetId }}-Graph" ></div>
+</div>
+
+<script type="module">
+setInterval(() => {
+    let nowLineElement = document.querySelector("#wgcontent-{{ .widgetId }}-Lines>.nowline")
+    if(nowLineElement !== null) {
+        nowLineElement.style.setProperty("--nowline-visibility", "hidden");
+        let a = new Date();
+        let mins = a.getHours()*60 + a.getMinutes();
+        nowLineElement.style.setProperty("--now-minutes", mins);
+        nowLineElement.style.setProperty("--nowline-visibility", "visible");
+    }
+},1000*60);
+</script>
+{{ end }}

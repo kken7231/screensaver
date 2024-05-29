@@ -1,0 +1,122 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@100..700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    background-color: var(--md-sys-color-background);
+    color: var(--md-sys-color-on-background);
+}
+
+.grid-container {
+    gap: var(--gap);
+    --parent-height: 100vh;
+    --parent-width: 100vw;
+    --cell-height: calc(((var(--parent-height) - var(--margin)) + var(--gap)) / var(--rows) - var(--gap));
+    --cell-width: calc(((var(--parent-width) - var(--margin)) + var(--gap)) / var(--cols) - var(--gap));
+    --cell-size: min(var(--cell-height), var(--cell-width));
+    --wg-padding: calc(var(--cell-size) * 0.1);
+    height: calc((var(--cell-size) + var(--gap)) * var(--rows) - var(--gap));
+    width: calc((var(--cell-size) + var(--gap)) * var(--cols) - var(--gap));
+    grid-template-rows: repeat(var(--rows), 1fr);
+    grid-template-columns: repeat(var(--cols), 1fr);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: grid;
+    line-height: 1;
+}
+
+.widget {
+    grid-row: var(--wg-irow) / span var(--wg-lrow);
+    grid-column: var(--wg-icol) / span var(--wg-lcol);
+    position: relative;
+    border-radius: calc(var(--cell-size) * 0.1);
+    /* box-shadow: 0 0 8px gray; */
+    text-align: center;
+    --wg-width: calc(var(--cell-size) * var(--wg-lcol) + var(--gap) * (var(--wg-lcol) - 1) - var(--wg-padding) * 2);
+    --wg-height: calc(var(--cell-size) * var(--wg-lrow) + var(--gap) * (var(--wg-lrow) - 1) - var(--wg-padding) * 2);
+    font-size: var(--wg-height);
+    background-color: var(--md-sys-color-primary-container);
+    color: var(--md-sys-color-on-primary-container);
+}
+
+.widget-content {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: var(--wg-padding);
+}
+
+.wg-spacer {
+    flex-grow: 1;
+}
+
+.wg-hstack {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: var(--wg-width);
+}
+
+.wg-vstack {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: var(--wg-height);
+}
+
+.wg-hstack>.wg-vstack>.wg-hstack {
+    width: 100%;
+}
+
+.wg-vstack>.wg-hstack>.wg-vstack {
+    height: 100%;
+}
+
+.update-btn-container {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.update-btn {
+    display: inline-flex;
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: calc(var(--cell-size) * 0.1);
+    transition: background-color 0.3s, color 0.3s;
+    padding: calc(var(--cell-size) * 0.05);
+}
+
+.update-btn:hover {
+    background-color: var(--md-sys-color-tertiary);
+    color: var(--md-sys-color-tertiary);
+}
+
+.update-btn:hover .icon svg {
+    fill: var(--md-sys-color-on-tertiary);
+}
+
+/* Ensure the transition applies to the icon */
+.update-btn .icon svg {
+    width: calc(var(--cell-size) * 0.1);
+    height: calc(var(--cell-size) * 0.1);
+    fill: transparent;
+    transition: fill 0.3s;
+}
