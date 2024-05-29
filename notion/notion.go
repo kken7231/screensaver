@@ -13,8 +13,8 @@ import (
 	"strings"
 	"time"
 
-	"go/screensaver/layout"
-	"go/screensaver/util"
+	"github.com/kken7231/screensaver/layout"
+	"github.com/kken7231/screensaver/util"
 
 	"github.com/gin-gonic/gin"
 )

@@ -10,10 +10,10 @@ import (
 	"slices"
 	"time"
 
-	"go/screensaver/layout"
-	"go/screensaver/notion"
-	"go/screensaver/util"
-	"go/screensaver/weather"
+	"github.com/kken7231/screensaver/layout"
+	"github.com/kken7231/screensaver/notion"
+	"github.com/kken7231/screensaver/util"
+	"github.com/kken7231/screensaver/weather"
 
 	"github.com/gin-gonic/gin"
 )

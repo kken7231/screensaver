@@ -4,12 +4,13 @@ package weather
 import (
 	"encoding/json"
 	"fmt"
-	"go/screensaver/layout"
-	"go/screensaver/util"
 	"io"
 	"net/http"
 	"strconv"
 	"time"
+
+	"github.com/kken7231/screensaver/layout"
+	"github.com/kken7231/screensaver/util"
 
 	"github.com/gin-gonic/gin"
 )

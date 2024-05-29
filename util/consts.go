@@ -18,9 +18,3 @@ const NAME_PROPERTYNAME = "名前"
 
 // DATE_PROPERTYNAME is the property name used for event dates in the Notion API.
 const DATE_PROPERTYNAME = "日付"
-
-// API_KEY is the key used to authenticate requests to the Notion API.
-const API_KEY = "a"
-
-// DATABASE_ID is the identifier for the Notion database used to fetch calendar events.
-const DATABASE_ID = "b"

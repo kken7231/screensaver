@@ -4,7 +4,7 @@ package main
 import (
 	"net/http"
 
-	"go/screensaver/layout"
+	"github.com/kken7231/screensaver/layout"
 
 	"github.com/gin-gonic/gin"
 )
